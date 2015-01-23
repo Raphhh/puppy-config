@@ -1,6 +1,11 @@
 <?php
 namespace Puppy\Config;
 
+/**
+ * Class Config
+ * @package Puppy\Config
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
+ */
 class Config
 {
     /**
@@ -52,12 +57,41 @@ class Config
      */
     private function initVars()
     {
-        $this->vars = $this->getFilesContent(
-            [
-                $this->getMainFilePath(),
-                $this->getEnvFilePath(),
-            ]
+        $this->vars = $this->replace(
+            $this->getFilesContent(
+                [
+                    $this->getMainFilePath(),
+                    $this->getEnvFilePath(),
+                ]
+            )
         );
+
+    }
+
+    /**
+     * @param array $vars
+     * @return array
+     */
+    private function replace(array $vars)
+    {
+        $replacement = $this->formatKeys($vars);
+        foreach ($vars as $key => $var) {
+            $vars[$key] = strtr($var, $replacement);
+        }
+        return $vars;
+    }
+
+    /**
+     * @param array $vars
+     * @return array
+     */
+    private function formatKeys(array $vars)
+    {
+        $result = [];
+        foreach ($vars as $key => $value) {
+            $result['%' . $key . '%'] = $value;
+        }
+        return $result;
     }
 
     /**

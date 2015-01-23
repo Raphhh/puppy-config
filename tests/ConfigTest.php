@@ -44,5 +44,17 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $config = new Config('', 'config3', 'foo');
         $this->assertSame('value1d', $config->get('key1'));
     }
+
+    public function testGetInMainWithReplacement()
+    {
+        $config = new Config();
+        $this->assertSame('value1', $config->get('key2'));
+    }
+
+    public function testGetInEnvWithReplacement()
+    {
+        $config = new Config('dev');
+        $this->assertSame('value1b', $config->get('key2'));
+    }
 }
  
