@@ -6,7 +6,7 @@ namespace Puppy\Config;
  * @package Puppy\Config
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
-class Config
+class Config implements IConfig
 {
     /**
      * @var string
