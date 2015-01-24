@@ -56,5 +56,22 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $config = new Config('dev');
         $this->assertSame('value1b', $config->get('key2'));
     }
+
+    public function testGetWithoutExistingDir()
+    {
+        $this->assertFalse(is_dir('foo'));
+
+        $config = new Config('', 'foo');
+        $this->assertNull($config->get('key1'));
+    }
+
+    public function testGetWithoutExistingFile()
+    {
+        $this->assertFalse(is_file('config3/main.php'));
+        $this->assertFalse(is_file('config3/bar.php'));
+
+        $config = new Config('', 'config3', 'bar');
+        $this->assertNull($config->get('key1'));
+    }
 }
  
