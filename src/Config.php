@@ -33,7 +33,7 @@ class Config implements IConfig
      * @param string $dirPath
      * @param string $mainConfigFileName
      */
-    public function __construct($env = '', $dirPath = 'config', $mainConfigFileName = 'main')
+    public function __construct($env = '', $dirPath = 'config', $mainConfigFileName = 'global')
     {
         $this->setEnv($env);
         $this->setDirPath($dirPath);
