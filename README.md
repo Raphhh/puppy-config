@@ -23,10 +23,10 @@ Run composer:
 $ composer require raphhh/puppy-config
 ```
 
-Add the main config file <project-root>/config/main.php:
+Add the main config file <project-root>/config/global.php:
 
 ```php
-// config/main.php
+// /config/global.php
 return [
     'key' => 'value',
 ];
@@ -45,9 +45,9 @@ $config->get('key'); // will return 'value'
 
 ### How are loaded the files?
 
-In all the cases, Config will load the file 'main.php'. (You can easily change this default file.)
+In all the cases, Config will load the file 'global.php'. (You can easily change this default file.)
 
-If you specify an env in the constructor, it will load also the associated file.
+If you specify an env in the constructor, it will load also the associated file. The env config will override the global config.
 
 Fo example:
 
@@ -74,7 +74,7 @@ new Confif(getenv('APPLICATION_ENV')); //will load dev.php only in your dev serv
 You can retrieve dynamically a previous defined value with it key.
 
 ```php
-// config/main.php
+// /config/global.php
 return [
     'key1' => 'value1',
     'key2' => '%key1%_b', //the value of the key2 will be 'value1_b'
