@@ -1,6 +1,6 @@
 {
     "name": "raphhh/puppy-config",
-    "description": "A bootstrap for a PHP lib, including basic common files and settings",
+    "description": "Config manager",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -9,7 +9,7 @@
             "email": "raphael@raphaellefebvre.be"
         }
     ],
-    "keywords": ["bootstrap"],
+    "keywords": ["config"],
     "homepage": "https://github.com/Raphhh/puppy-config",
     "autoload": {
         "psr-4": {
