@@ -47,7 +47,7 @@ class SimpleConfig implements IConfig
     {
         $replacement = $this->formatKeys($vars);
         foreach ($vars as $key => $var) {
-            if(is_string($var)){
+            if (is_string($var)) {
                 $vars[$key] = strtr($var, $replacement);
             }
         }
@@ -62,7 +62,9 @@ class SimpleConfig implements IConfig
     {
         $result = [];
         foreach ($vars as $key => $value) {
-            $result['%' . $key . '%'] = $value;
+            if (is_string($value)) {
+                $result['%' . $key . '%'] = $value;
+            }
         }
         return $result;
     }

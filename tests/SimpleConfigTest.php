@@ -11,7 +11,10 @@ class SimpleConfigTest extends \PHPUnit_Framework_TestCase
 
     public function testGetWithArray()
     {
-        $config = new SimpleConfig(['key1' => []]);
+        $config = new SimpleConfig([
+            'key1' => [],
+            'key2' => '%key1%',
+        ]);
         $this->assertSame([], $config->get('key1'));
     }
 }
