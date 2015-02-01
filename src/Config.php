@@ -24,9 +24,9 @@ class Config implements IConfig
     private $mainConfigFileName;
 
     /**
-     * @var array
+     * @var SimpleConfig
      */
-    private $vars;
+    private $simpleConfig;
 
     /**
      * @param string $env
@@ -46,52 +46,23 @@ class Config implements IConfig
      */
     public function get($key)
     {
-        if (null === $this->vars) {
-            $this->initVars();
+        if (null === $this->simpleConfig) {
+            $this->initSimpleConfig();
         }
-        return isset($this->vars[$key]) ? $this->vars[$key] : null;
+        return $this->simpleConfig->get($key);
     }
 
     /**
      *
      */
-    private function initVars()
+    private function initSimpleConfig()
     {
-        $this->vars = $this->replace(
-            $this->getFilesContent(
-                [
-                    $this->getMainFilePath(),
-                    $this->getEnvFilePath(),
-                ]
-            )
-        );
-
-    }
-
-    /**
-     * @param array $vars
-     * @return array
-     */
-    private function replace(array $vars)
-    {
-        $replacement = $this->formatKeys($vars);
-        foreach ($vars as $key => $var) {
-            $vars[$key] = strtr($var, $replacement);
-        }
-        return $vars;
-    }
-
-    /**
-     * @param array $vars
-     * @return array
-     */
-    private function formatKeys(array $vars)
-    {
-        $result = [];
-        foreach ($vars as $key => $value) {
-            $result['%' . $key . '%'] = $value;
-        }
-        return $result;
+        $this->simpleConfig = new SimpleConfig($this->getFilesContent(
+            [
+                $this->getMainFilePath(),
+                $this->getEnvFilePath(),
+            ]
+        ));
     }
 
     /**
