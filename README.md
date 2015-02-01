@@ -52,7 +52,7 @@ If you specify an env in the constructor, it will load also the associated file.
 Fo example:
 
 ```php
-new Confif('dev'); //will load dev.php
+new Config('dev'); //will load dev.php
 ```
 
 ### How env can change dynamically?
@@ -66,7 +66,7 @@ SetEnv APPLICATION_ENV "dev"
 
 In your PHP file, retrieve the env:
 ```php
-new Confif(getenv('APPLICATION_ENV')); //will load dev.php only in your dev server
+new Config(getenv('APPLICATION_ENV')); //will load dev.php only in your dev server
 ```
 
 ## Dynamic values
