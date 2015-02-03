@@ -15,7 +15,7 @@ class SimpleConfigTest extends \PHPUnit_Framework_TestCase
             'key1' => [],
             'key2' => '%key1%',
         ]);
-        $this->assertSame([], $config->get('key1'));
+        $this->assertSame([], $config['key1']);
     }
 }
  

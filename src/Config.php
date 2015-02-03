@@ -49,7 +49,10 @@ class Config implements IConfig
         if (null === $this->simpleConfig) {
             $this->initSimpleConfig();
         }
-        return $this->simpleConfig->get($key);
+        if(array_key_exists($key, $this->simpleConfig)){
+            return $this->simpleConfig[$key];
+        }
+        return null;
     }
 
     /**

@@ -6,37 +6,15 @@ namespace Puppy\Config;
  * @package Puppy\Config
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
-class SimpleConfig implements IConfig
+class SimpleConfig extends \ArrayObject
 {
-
-    /**
-     * @var array
-     */
-    private $vars;
 
     /**
      * @param array $vars
      */
     public function __construct(array $vars)
     {
-        $this->initVars($vars);
-    }
-
-    /**
-     * @param string $key
-     * @return mixed|null
-     */
-    public function get($key)
-    {
-        return isset($this->vars[$key]) ? $this->vars[$key] : null;
-    }
-
-    /**
-     *
-     */
-    private function initVars(array $vars)
-    {
-        $this->vars = $this->replace($vars);
+        parent::__construct($this->replace($vars));
     }
 
     /**
