@@ -38,7 +38,7 @@ Launch the Config class:
 use Puppy\Config\Config;
 
 $config = new Config();
-$config->get('key'); // will return 'value'
+$config['key']; //'value'
 ```
 
 ## Multi environment
@@ -77,6 +77,12 @@ You can retrieve dynamically a previous defined value with it key.
 // /config/global.php
 return [
     'key1' => 'value1',
-    'key2' => '%key1%_b', //the value of the key2 will be 'value1_b'
+    'key2' => '%key1%_b',
 ];
+```
+```php
+use Puppy\Config\Config;
+
+$config = new Config();
+$config['key2']; //'value1_b'
 ```
