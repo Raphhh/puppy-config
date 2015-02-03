@@ -24,37 +24,37 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     public function testGetInMain()
     {
         $config = new Config();
-        $this->assertSame('value1', $config->get('key1'));
+        $this->assertSame('value1', $config['key1']);
     }
 
     public function testGetInEnv()
     {
         $config = new Config('dev');
-        $this->assertSame('value1b', $config->get('key1'));
+        $this->assertSame('value1b', $config['key1']);
     }
 
     public function testGetWithOtherDir()
     {
         $config = new Config('', 'config2');
-        $this->assertSame('value1c', $config->get('key1'));
+        $this->assertSame('value1c', $config['key1']);
     }
 
     public function testGetWithOtherFileName()
     {
         $config = new Config('', 'config3', 'foo');
-        $this->assertSame('value1d', $config->get('key1'));
+        $this->assertSame('value1d', $config['key1']);
     }
 
     public function testGetInMainWithReplacement()
     {
         $config = new Config();
-        $this->assertSame('value1', $config->get('key2'));
+        $this->assertSame('value1', $config['key2']);
     }
 
     public function testGetInEnvWithReplacement()
     {
         $config = new Config('dev');
-        $this->assertSame('value1b', $config->get('key2'));
+        $this->assertSame('value1b', $config['key2']);
     }
 
     public function testGetWithoutExistingDir()
@@ -62,7 +62,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse(is_dir('foo'));
 
         $config = new Config('', 'foo');
-        $this->assertNull($config->get('key1'));
+        $this->assertFalse(isset($config['key1']));
     }
 
     public function testGetWithoutExistingFile()
@@ -71,7 +71,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse(is_file('config3/bar.php'));
 
         $config = new Config('', 'config3', 'bar');
-        $this->assertNull($config->get('key1'));
+        $this->assertFalse(isset($config['key1']));
     }
 }
  

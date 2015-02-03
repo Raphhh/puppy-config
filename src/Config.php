@@ -6,7 +6,7 @@ namespace Puppy\Config;
  * @package Puppy\Config
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
-class Config implements IConfig
+class Config extends \ArrayObject
 {
     /**
      * @var string
@@ -24,11 +24,6 @@ class Config implements IConfig
     private $mainConfigFileName;
 
     /**
-     * @var SimpleConfig
-     */
-    private $simpleConfig;
-
-    /**
      * @param string $env
      * @param string $dirPath
      * @param string $mainConfigFileName
@@ -38,34 +33,21 @@ class Config implements IConfig
         $this->setEnv($env);
         $this->setDirPath($dirPath);
         $this->setMainConfigFileName($mainConfigFileName);
+        parent::__construct($this->getVars());
     }
 
     /**
-     * @param string $key
-     * @return mixed|null
+     * @return array
      */
-    public function get($key)
+    private function getVars()
     {
-        if (null === $this->simpleConfig) {
-            $this->initSimpleConfig();
-        }
-        if(array_key_exists($key, $this->simpleConfig)){
-            return $this->simpleConfig[$key];
-        }
-        return null;
-    }
-
-    /**
-     *
-     */
-    private function initSimpleConfig()
-    {
-        $this->simpleConfig = new SimpleConfig($this->getFilesContent(
+        $simpleConfig = new SimpleConfig($this->getFilesContent(
             [
                 $this->getMainFilePath(),
                 $this->getEnvFilePath(),
             ]
         ));
+        return $simpleConfig->getArrayCopy();
     }
 
     /**
@@ -172,6 +154,5 @@ class Config implements IConfig
     {
         return $this->mainConfigFileName;
     }
-
 }
  
