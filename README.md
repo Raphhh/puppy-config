@@ -9,7 +9,7 @@
 [![Reference Status](https://www.versioneye.com/php/raphhh:puppy-config/reference_badge.svg?style=flat)](https://www.versioneye.com/php/raphhh:puppy-config/references)
 [![License](https://poser.pugx.org/raphhh/puppy-config/license.svg)](https://packagist.org/packages/raphhh/puppy-config)
 
-Puppy Config load for you your config.
+Puppy Config loads for you your config.
 
 Config basic logic:
 
@@ -41,6 +41,24 @@ $config = new Config();
 $config['key']; //'value'
 ```
 
+## Dynamic values
+
+You can retrieve dynamically a previous defined value with it key.
+
+```php
+// /config/global.php
+return [
+    'key1' => 'value1',
+    'key2' => '%key1%_b',
+];
+```
+```php
+use Puppy\Config\Config;
+
+$config = new Config();
+$config['key2']; //'value1_b'
+```
+
 ## Multi environment
 
 ### How are loaded the files?
@@ -69,20 +87,7 @@ In your PHP file, retrieve the env:
 new Config(getenv('APPLICATION_ENV')); //will load dev.php only in your dev server
 ```
 
-## Dynamic values
+### What is the local config (todo)
 
-You can retrieve dynamically a previous defined value with it key.
+The config will load also a local config, if the file config/local.dev exists. This config will override the global and the env configs. This file must be not versioned. So, it is an individual config, where your can put tempory or specific config. Your can also put config you do not want to version, like the passwords.
 
-```php
-// /config/global.php
-return [
-    'key1' => 'value1',
-    'key2' => '%key1%_b',
-];
-```
-```php
-use Puppy\Config\Config;
-
-$config = new Config();
-$config['key2']; //'value1_b'
-```
