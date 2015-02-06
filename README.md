@@ -79,12 +79,12 @@ Set an environment variable in your server virtual host configuration, and retri
 
 In your httpd.conf or a .htaccess file of your dev Apache server, put:
 ```
-SetEnv APPLICATION_ENV "dev"
+SetEnv APP_ENV "dev"
 ```
 
 In your PHP file, retrieve the env:
 ```php
-new Config(getenv('APPLICATION_ENV')); //will load dev.php only in your dev server
+new Config(getenv('APP_ENV')); //will load dev.php only in your dev server
 ```
 
 ### What is the local config (todo)
