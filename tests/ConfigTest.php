@@ -33,6 +33,12 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('value1b', $config['key1']);
     }
 
+    public function testGetInLocal()
+    {
+        $config = new Config('dev');
+        $this->assertSame('value1c', $config['key3']);
+    }
+
     public function testGetWithOtherDir()
     {
         $config = new Config('', 'config2');

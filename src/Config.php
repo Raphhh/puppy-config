@@ -24,15 +24,27 @@ class Config extends \ArrayObject
     private $mainConfigFileName;
 
     /**
+     * @var string
+     */
+    private $localConfigFileName;
+
+    /**
      * @param string $env
      * @param string $dirPath
      * @param string $mainConfigFileName
+     * @param string $localConfigFileName
      */
-    public function __construct($env = '', $dirPath = 'config', $mainConfigFileName = 'global')
+    public function __construct(
+        $env = '',
+        $dirPath = 'config',
+        $mainConfigFileName = 'global',
+        $localConfigFileName = 'local'
+    )
     {
         $this->setEnv($env);
         $this->setDirPath($dirPath);
         $this->setMainConfigFileName($mainConfigFileName);
+        $this->setLocalConfigFileName($localConfigFileName);
         parent::__construct($this->getVars());
     }
 
@@ -45,6 +57,7 @@ class Config extends \ArrayObject
             [
                 $this->getMainFilePath(),
                 $this->getEnvFilePath(),
+                $this->getLocalFilePath(),
             ]
         ));
         return $simpleConfig->getArrayCopy();
@@ -93,6 +106,14 @@ class Config extends \ArrayObject
     private function getEnvFilePath()
     {
         return $this->getDirPath() . DIRECTORY_SEPARATOR . $this->getEnv() . '.php';
+    }
+
+    /**
+     * @return string
+     */
+    private function getLocalFilePath()
+    {
+        return $this->getDirPath() . DIRECTORY_SEPARATOR . $this->getLocalConfigFileName() . '.php';
     }
 
     /**
@@ -154,5 +175,26 @@ class Config extends \ArrayObject
     {
         return $this->mainConfigFileName;
     }
+
+    /**
+     * Getter of $localConfigFileName
+     *
+     * @return string
+     */
+    private function getLocalConfigFileName()
+    {
+        return $this->localConfigFileName;
+    }
+
+    /**
+     * Setter of $localConfigFileName
+     *
+     * @param string $localConfigFileName
+     */
+    private function setLocalConfigFileName($localConfigFileName)
+    {
+        $this->localConfigFileName = (string)$localConfigFileName;
+    }
+
 }
  
