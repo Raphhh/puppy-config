@@ -87,7 +87,7 @@ In your PHP file, retrieve the env:
 new Config(getenv('APP_ENV')); //will load dev.php only in your dev server
 ```
 
-### What is the local config (todo)
+### What is the local config?
 
 The config will load also a local config, if the file config/local.dev exists. This config will override the global and the env configs. This file must be not versioned. So, it is an individual config, where your can put tempory or specific config. Your can also put config you do not want to version, like the passwords.
 
