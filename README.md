@@ -23,6 +23,8 @@ Run composer:
 $ composer require raphhh/puppy-config
 ```
 
+## Read your config
+
 Add the main config file <project-root>/config/global.php:
 
 ```php
