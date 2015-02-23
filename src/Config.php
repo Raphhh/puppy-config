@@ -6,7 +6,7 @@ namespace Puppy\Config;
  * @package Puppy\Config
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
-class Config extends \ArrayObject
+class Config extends ArrayConfig
 {
     /**
      * @var string
@@ -53,14 +53,13 @@ class Config extends \ArrayObject
      */
     private function getVars()
     {
-        $simpleConfig = new ArrayConfig($this->getFilesContent(
+        return $this->getFilesContent(
             [
                 $this->getMainFilePath(),
                 $this->getEnvFilePath(),
                 $this->getLocalFilePath(),
             ]
-        ));
-        return $simpleConfig->getArrayCopy();
+        );
     }
 
     /**
