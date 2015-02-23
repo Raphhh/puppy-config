@@ -61,6 +61,24 @@ $config = new Config();
 $config['key2']; //'value1_b'
 ```
 
+## Set new values 
+
+You can set new values on the fly, which will be available in the Config object during all the script (and not saved into a file config).
+
+```php
+use Puppy\Config\Config;
+
+$config = new Config();
+$config['new_key'] = 'new_value';
+```
+
+You can also use the dynamic mapping.
+ 
+```php
+$config['new_key2'] = '%new_key%';
+$config['new_key2']; // 'new_value'
+```
+
 ## Multi environment
 
 ### How are loaded the files?
