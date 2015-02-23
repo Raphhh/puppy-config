@@ -53,7 +53,7 @@ class Config extends \ArrayObject
      */
     private function getVars()
     {
-        $simpleConfig = new SimpleConfig($this->getFilesContent(
+        $simpleConfig = new ArrayConfig($this->getFilesContent(
             [
                 $this->getMainFilePath(),
                 $this->getEnvFilePath(),

@@ -6,12 +6,12 @@ namespace Puppy\Config;
  * @package Puppy\Config
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
-class SimpleConfigTest extends \PHPUnit_Framework_TestCase
+class ArrayConfigTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testGetWithArray()
     {
-        $config = new SimpleConfig([
+        $config = new ArrayConfig([
             'key1' => [],
             'key2' => '%key1%',
         ]);
