@@ -18,10 +18,20 @@ class ArrayConfig extends \ArrayObject
     }
 
     /**
+     * @param mixed $key
+     * @param mixed $value
+     */
+    public function offsetSet($key, $value)
+    {
+        parent::offsetSet($key, $value);
+        $this->exchangeArray($this->replace($this->getArrayCopy()));
+    }
+
+    /**
      * @param array $vars
      * @return array
      */
-    private function replace(array $vars)
+    private function replace($vars)
     {
         $replacement = $this->formatKeys($vars);
         foreach ($vars as $key => $var) {

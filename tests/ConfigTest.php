@@ -79,5 +79,16 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $config = new Config('', 'config3', 'bar');
         $this->assertFalse(isset($config['key1']));
     }
+
+    public function testSetWithReplacement()
+    {
+        $config = new Config();
+
+        $config['keyA'] = '%keyB%';
+        $config['keyB'] = 'value';
+
+        $this->assertSame('value', $config['keyA']);
+        $this->assertSame('value', $config['keyB']);
+    }
 }
  
