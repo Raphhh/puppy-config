@@ -53,7 +53,7 @@ class Config extends ArrayConfig
      */
     public function getMainFilePath()
     {
-        return $this->getRealPath($this->getDirPath() . DIRECTORY_SEPARATOR . $this->getMainConfigFileName() . '.php');
+        return $this->getDirPath() . DIRECTORY_SEPARATOR . $this->getMainConfigFileName() . '.php';
     }
 
     /**
@@ -61,7 +61,7 @@ class Config extends ArrayConfig
      */
     public function getEnvFilePath()
     {
-        return $this->getRealPath($this->getDirPath() . DIRECTORY_SEPARATOR . $this->getEnv() . '.php');
+        return $this->getDirPath() . DIRECTORY_SEPARATOR . $this->getEnv() . '.php';
     }
 
     /**
@@ -69,7 +69,7 @@ class Config extends ArrayConfig
      */
     public function getLocalFilePath()
     {
-        return $this->getRealPath($this->getDirPath() . DIRECTORY_SEPARATOR . $this->getLocalConfigFileName() . '.php');
+        return $this->getDirPath() . DIRECTORY_SEPARATOR . $this->getLocalConfigFileName() . '.php';
     }
 
     /**
@@ -93,8 +93,11 @@ class Config extends ArrayConfig
     private function getFilesContent(array $filePaths)
     {
         $result = [];
-        foreach (array_filter($filePaths) as $filePath) {
-            $result = array_merge($result, require $filePath);
+        foreach ($filePaths as $filePath) {
+            $filePath = $this->getRealPath($filePath);
+            if ($filePath) {
+                $result = array_merge($result, require $filePath);
+            }
         }
         return $result;
     }
