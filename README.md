@@ -134,19 +134,34 @@ $globalConfig['a.a']; //'new value'
 
 ## Multi environment
 
-### How are loaded the files?
+Your config is the merge of the values coming from three kind of files:
+
+| type          | file name    | loading                   | overloading                    | env use           |
+|---------------|--------------|---------------------------|--------------------------------|-------------------|
+| global config | global.php   | always loaded             |                                | prod & test       |
+| env config    | e.i. dev.php | according to the env      | override global config         | dev               |
+| local config  | local.php    | specific for each machine | override global and env config | prod & test - dev |
+
+
+### How is loaded the env config?
 
 In all the cases, Config will load the file 'global.php'. (You can easily change this default file.)
 
-If you specify an env in the constructor, it will load also the associated file. The env config will override the global config.
+By default, this is your prod config.
+
+### How is loaded the env config?
+
+If you specify an env in the constructor, it will load also the associated file.
 
 For example:
 
 ```php
-new Config('dev'); //will load dev.php
+new Config('dev'); //will load dev.php (in addition to global.php)
 ```
 
-### How env can change dynamically?
+The env config will override the global config. So, use it for your dev env, which will override your prod params.
+
+#### How env can change dynamically?
 
 Set an environment variable in your server virtual host configuration, and retrieve it with the [php getenv() method](http://php.net/manual/en/function.getenv.php).
 
@@ -162,4 +177,8 @@ new Config(getenv('APP_ENV')); //will load dev.php only in your dev server
 
 ### What is the local config?
 
-The config will load also a local config, if the file config/local.php exists. This config will override the global and the env configs. This file must be not versioned. So, it is an individual config, where your can put tempory or specific config. Your can also put config you do not want to version, like the passwords.
+The config will load also a local config, if the file config/local.php exists. 
+
+This config will override the global and the env configs. Be careful: this file must be NOT versioned. 
+
+So, it is an individual config, where your can put temporary or specific config. Your can also put config you do not want to version, like the passwords.
