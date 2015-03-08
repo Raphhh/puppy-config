@@ -15,6 +15,7 @@ Config basic logic:
 
 - env config management
 - dynamic config values
+- visibility restriction
 
 ## Installation
 
