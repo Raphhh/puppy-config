@@ -72,5 +72,33 @@ class ArrayConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('value', $config['key2']);
         $this->assertSame('value', $config['key3']);
     }
+
+    public function testRestrict()
+    {
+        $config = new ArrayConfig([
+            'a.a' => 'a.a',
+            'b.a' => 'b.a'
+        ]);
+
+        $restrictedConfig = $config->restrict('a');
+        $this->assertTrue(isset($restrictedConfig['a']));
+        $this->assertFalse(isset($restrictedConfig['b']));
+    }
+
+    public function testOffsetSetAfterRestrict()
+    {
+        $config = new ArrayConfig([
+            'a.a' => 'a.a',
+            'b.a' => 'b.a'
+        ]);
+        $restrictedConfig = $config->restrict('a');
+
+        $this->assertSame('a.a', $config['a.a']);
+        $this->assertSame('a.a', $restrictedConfig['a']);
+
+        $restrictedConfig['a'] = 'a.a.2';
+        $this->assertSame('a.a.2', $config['a.a']);
+        $this->assertSame('a.a.2', $restrictedConfig['a']);
+    }
 }
  

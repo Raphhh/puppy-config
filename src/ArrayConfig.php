@@ -22,6 +22,18 @@ class ArrayConfig extends \ArrayObject
     }
 
     /**
+     * restricts the config to a specific visibility.
+     *
+     * @param string $restriction
+     * @param string $separator
+     * @return RestrictedConfig
+     */
+    public function restrict($restriction, $separator = '.')
+    {
+        return new RestrictedConfig($restriction, $separator, $this);
+    }
+
+    /**
      * @param mixed $key
      * @param mixed $value
      */
