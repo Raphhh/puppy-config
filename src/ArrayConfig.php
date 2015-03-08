@@ -43,28 +43,28 @@ class ArrayConfig extends \ArrayObject
     }
 
     /**
-     * @param array|\ArrayObject $vars
+     * @param array|\ArrayObject $data
      * @return array
      */
-    private function replace($vars)
+    private function replace($data)
     {
-        $replacement = $this->formatKeys($vars);
-        foreach ($vars as $key => $var) {
+        $replacement = $this->formatKeys($data);
+        foreach ($data as $key => $var) {
             if (is_string($var)) {
-                $vars[$key] = strtr($var, $replacement);
+                $data[$key] = strtr($var, $replacement);
             }
         }
-        return $vars;
+        return $data;
     }
 
     /**
-     * @param array|\ArrayObject $vars
+     * @param array|\ArrayObject $data
      * @return array
      */
-    private function formatKeys($vars)
+    private function formatKeys($data)
     {
         $result = [];
-        foreach ($vars as $key => $value) {
+        foreach ($data as $key => $value) {
             if (is_string($value)) {
                 $result['%' . $key . '%'] = $value;
             }
