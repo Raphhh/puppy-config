@@ -24,7 +24,7 @@ class ArrayConfig extends \ArrayObject
     public function offsetSet($key, $value)
     {
         parent::offsetSet($key, $value);
-        $this->exchangeArray($this->replace($this->getArrayCopy()));
+        $this->exchangeArray($this->replace(parent::getArrayCopy()));
     }
 
     /**
