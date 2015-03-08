@@ -143,13 +143,13 @@ Your config is the merge of the values coming from three kind of files:
 | local config  | local.php    | specific for each machine | override global and env config | prod & test - dev |
 
 
-### How is loaded the env config?
+### When is loaded the global config?
 
 In all the cases, Config will load the file 'global.php'. (You can easily change this default file.)
 
 By default, this is your prod config.
 
-### How is loaded the env config?
+### When is loaded the env config?
 
 If you specify an env in the constructor, it will load also the associated file.
 
