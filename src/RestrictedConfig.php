@@ -16,9 +16,9 @@ class RestrictedConfig extends ArrayConfig
     /**
      * @param string $restriction
      * @param string $separator
-     * @param array $data
+     * @param array|\ArrayObject $data
      */
-    public function __construct($restriction, $separator, array $data = array())
+    public function __construct($restriction, $separator, $data = array())
     {
         $this->setRestriction($restriction . $separator);
         parent::__construct($data);

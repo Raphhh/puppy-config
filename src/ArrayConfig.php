@@ -10,11 +10,15 @@ class ArrayConfig extends \ArrayObject
 {
 
     /**
-     * @param array $vars
+     * @param array|\ArrayObject $data
      */
-    public function __construct(array $vars)
+    public function __construct($data)
     {
-        parent::__construct($this->replace($vars));
+        if($data instanceof self){
+            parent::__construct($data);
+        }else{
+            parent::__construct($this->replace($data));
+        }
     }
 
     /**
@@ -28,7 +32,7 @@ class ArrayConfig extends \ArrayObject
     }
 
     /**
-     * @param array $vars
+     * @param array|\ArrayObject $vars
      * @return array
      */
     private function replace($vars)
@@ -43,10 +47,10 @@ class ArrayConfig extends \ArrayObject
     }
 
     /**
-     * @param array $vars
+     * @param array|\ArrayObject $vars
      * @return array
      */
-    private function formatKeys(array $vars)
+    private function formatKeys($vars)
     {
         $result = [];
         foreach ($vars as $key => $value) {
