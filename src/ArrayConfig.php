@@ -14,11 +14,10 @@ class ArrayConfig extends \ArrayObject
      */
     public function __construct($data)
     {
-        if($data instanceof self){
-            parent::__construct($data);
-        }else{
-            parent::__construct($this->replace($data));
+        if(!($data instanceof self)){
+            $data = $this->replace($data);
         }
+        parent::__construct($data);
     }
 
     /**
