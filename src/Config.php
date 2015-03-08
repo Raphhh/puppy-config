@@ -45,7 +45,7 @@ class Config extends ArrayConfig
         $this->setDirPath($dirPath);
         $this->setMainConfigFileName($mainConfigFileName);
         $this->setLocalConfigFileName($localConfigFileName);
-        parent::__construct($this->getVars());
+        parent::__construct($this->getData());
     }
 
     /**
@@ -75,7 +75,7 @@ class Config extends ArrayConfig
     /**
      * @return array
      */
-    private function getVars()
+    private function getData()
     {
         return $this->getFilesContent(
             [
