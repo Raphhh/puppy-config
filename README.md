@@ -76,8 +76,60 @@ You can also use the dynamic mapping.
  
 ```php
 $config['new_key2'] = '%new_key%';
-$config['new_key2']; // 'new_value'
+$config['new_key2']; //'new_value'
 ```
+
+
+## Visibility restriction
+
+You can determine namespace in your config, and restrict the visibility of each namespace.
+
+For example, imagine you set this config, with two namespaces: 'a' and 'b'.
+
+```php
+//namespace a
+$globalConfig['a.a'] = 'a.a';
+$globalConfig['a.b'] = 'a.b';
+
+//namespace b
+$globalConfig['b.a'] = 'b.a';
+$globalConfig['b.b'] = 'b.b';
+```
+
+With the global scope config you can access to all the values.
+
+```php
+$restrictedConfig['a.a']; //'a.a'
+$restrictedConfig['b.a']; //'b.a'
+```
+
+Now, restrict the config to the namespace 'a':
+
+```php
+$restrictedConfig = $globalConfig->restrict('a');
+```
+
+This restricted scope config, you can only have access to the namespace 'a' values:
+
+```php
+$restrictedConfig['a']; //'a.a'
+$restrictedConfig['b']; //'a.b'
+```
+
+The original keys are not visible anymore:
+
+```php
+isset($restrictedConfig['a.a']); //false
+isset($restrictedConfig['b.a']); //false
+```
+
+But, the global scope config is still linked to your restricted scope. So, if you modify one, you modify the other.
+
+```php
+$restrictedConfig['a'] = 'new value';
+$globalConfig['a.a']; //'new value'
+```
+
 
 ## Multi environment
 
@@ -110,46 +162,3 @@ new Config(getenv('APP_ENV')); //will load dev.php only in your dev server
 ### What is the local config?
 
 The config will load also a local config, if the file config/local.php exists. This config will override the global and the env configs. This file must be not versioned. So, it is an individual config, where your can put tempory or specific config. Your can also put config you do not want to version, like the passwords.
-
-
-## Visibility restriction
-
-You can determine namespace in your config, and restrict the visibility of each namespace.
-
-For example, imagine you set this config:
-
-```php
-$globalConfig['a.a'] = 'a.a';
-$globalConfig['a.b'] = 'a.b';
-$globalConfig['b.a'] = 'b.a';
-$globalConfig['b.b'] = 'b.b';
-```
-
-With the global scope config you can access to all the values. But, in fact, you have two namespaces: 'a' and 'b'.
-
-Now, restrict the config to the namespace 'a':
-
-```php
-$restrictedConfig = $globalConfig->restrict('a');
-```
-
-This restricted scope config, you can only have access to the namespace 'a' values:
-
-```php
-$restrictedConfig['a']; // 'a.a'
-$restrictedConfig['b']; // 'a.b'
-```
-
-The original keys are not visible anymore:
-
-```php
-isset($restrictedConfig['a.a']); // false
-isset($restrictedConfig['b.a']); // false
-```
-
-But, the global scope config is still linked to your restricted scope. So, if you modify one, you modify the other.
-
-```php
-$restrictedConfig['a'] = 'new value';
-$globalConfig['a.a']; // 'new value'
-```
