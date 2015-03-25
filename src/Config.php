@@ -109,7 +109,7 @@ class Config extends ArrayConfig
     private function getRealPath($filePath)
     {
         $filePath = realpath($filePath);
-        if (file_exists($filePath) && is_readable($filePath)) {
+        if ($filePath && is_readable($filePath)) {
             return $filePath;
         }
         return '';
