@@ -108,7 +108,7 @@ class Config extends ArrayConfig
      */
     private function getRealPath($filePath)
     {
-        $filePath = realpath($filePath);
+        $filePath = stream_resolve_include_path($filePath);
         if ($filePath && is_readable($filePath)) {
             return $filePath;
         }
