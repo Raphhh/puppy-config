@@ -83,7 +83,7 @@ $config['new_key2']; //'new_value'
 
 ## Visibility restriction
 
-You can determine namespace in your config, and restrict the visibility of each namespace.
+You can determine some namespaces in your config, and restrict the visibility of each namespace.
 
 For example, imagine you set this config, with two namespaces: 'a' and 'b'.
 
@@ -110,7 +110,7 @@ Now, restrict the config to the namespace 'a':
 $restrictedConfig = $globalConfig->restrict('a');
 ```
 
-This restricted scope config, you can only have access to the namespace 'a' values:
+With this restricted scope config, you can only have access to the namespace 'a' values:
 
 ```php
 $restrictedConfig['a']; //'a.a'
@@ -124,7 +124,7 @@ isset($restrictedConfig['a.a']); //false
 isset($restrictedConfig['b.a']); //false
 ```
 
-But, the global scope config is still linked to your restricted scope. So, if you modify one, you modify the other.
+But, the global scope config is still bound to your restricted scope. So, if you modify one, you modify the other.
 
 ```php
 $restrictedConfig['a'] = 'new value';
