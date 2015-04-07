@@ -136,7 +136,7 @@ $globalConfig['a.a']; //'new value'
 
 Your config is the merge of the values coming from three kind of files:
 
-| type          | file name    | loading                   | overloading                    | env use           |
+| type          | file name    | loading                   | overloading                    | usage             |
 |---------------|--------------|---------------------------|--------------------------------|-------------------|
 | global config | global.php   | always loaded             |                                | prod & test       |
 | env config    | e.i. dev.php | according to the env      | override global config         | dev               |
@@ -182,3 +182,8 @@ The config will load also a local config, if the file config/local.php exists.
 This config will override the global and the env configs. Be careful: this file must be NOT versioned. 
 
 So, it is an individual config, where your can put temporary or specific config. Your can also put config you do not want to version, like the passwords.
+
+
+### Files format (todo)
+
+By default, Config load php files. But you can specify or add specific file formats.
