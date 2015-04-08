@@ -184,6 +184,16 @@ This config will override the global and the env configs. Be careful: this file 
 So, it is an individual config, where your can put temporary or specific config. Your can also put config you do not want to version, like the passwords.
 
 
-### Files format (todo)
+### Files format
 
 By default, Config load php files. But you can specify or add specific file formats.
+
+```php
+new Config('', null, new YmlFileReader()); //will load global.yml
+```
+
+Available formats:
+ - php (default)
+ - ini
+ - json
+ - yaml
