@@ -1,8 +1,8 @@
 <?php
 namespace Puppy\Config;
 
-use Puppy\Config\FileReader\ArrayFileReader;
 use Puppy\Config\FileReader\IFileReader;
+use Puppy\Config\FileReader\PhpFileReader;
 
 /**
  * Class Config
@@ -33,7 +33,7 @@ class Config extends ArrayConfig
     {
         $this->setEnv($env);
         $this->setFileParams($fileParams ? : new FileParams());
-        $this->setFileReader($fileReader ? : new ArrayFileReader());
+        $this->setFileReader($fileReader ? : new PhpFileReader());
         parent::__construct($this->getData());
     }
 

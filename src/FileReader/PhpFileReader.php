@@ -6,7 +6,7 @@ namespace Puppy\Config\FileReader;
  * @package Puppy\Config\FileReader
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
-class ArrayFileReader implements IFileReader
+class PhpFileReader implements IFileReader
 {
     /**
      * @return string
