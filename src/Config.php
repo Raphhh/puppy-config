@@ -12,40 +12,40 @@ class Config extends ArrayConfig
      * @var string
      */
     private $env;
-
     /**
-     * @var string
+     * @var FileParams
      */
-    private $dirPath;
-
-    /**
-     * @var string
-     */
-    private $mainConfigFileName;
-
-    /**
-     * @var string
-     */
-    private $localConfigFileName;
+    private $fileParams;
 
     /**
      * @param string $env
-     * @param string $dirPath
-     * @param string $mainConfigFileName
-     * @param string $localConfigFileName
+     * @param FileParams $fileParams
      */
-    public function __construct(
-        $env = '',
-        $dirPath = 'config',
-        $mainConfigFileName = 'global',
-        $localConfigFileName = 'local'
-    )
+    public function __construct($env = '', FileParams $fileParams = null)
     {
         $this->setEnv($env);
-        $this->setDirPath($dirPath);
-        $this->setMainConfigFileName($mainConfigFileName);
-        $this->setLocalConfigFileName($localConfigFileName);
+        $this->setFileParams($fileParams ? : new FileParams());
         parent::__construct($this->getData());
+    }
+
+    /**
+     * Getter of $env
+     *
+     * @return string
+     */
+    public function getEnv()
+    {
+        return $this->env;
+    }
+
+    /**
+     * Getter of $fileParams
+     *
+     * @return FileParams
+     */
+    public function getFileParams()
+    {
+        return $this->fileParams;
     }
 
     /**
@@ -53,7 +53,7 @@ class Config extends ArrayConfig
      */
     public function getMainFilePath()
     {
-        return $this->getDirPath() . DIRECTORY_SEPARATOR . $this->getMainConfigFileName() . '.php';
+        return $this->getFileParams()->getDirPath() . DIRECTORY_SEPARATOR . $this->getFileParams()->getMainConfigFileName() . '.php';
     }
 
     /**
@@ -61,7 +61,7 @@ class Config extends ArrayConfig
      */
     public function getEnvFilePath()
     {
-        return $this->getDirPath() . DIRECTORY_SEPARATOR . $this->getEnv() . '.php';
+        return $this->getFileParams()->getDirPath() . DIRECTORY_SEPARATOR . $this->getEnv() . '.php';
     }
 
     /**
@@ -69,7 +69,7 @@ class Config extends ArrayConfig
      */
     public function getLocalFilePath()
     {
-        return $this->getDirPath() . DIRECTORY_SEPARATOR . $this->getLocalConfigFileName() . '.php';
+        return $this->getFileParams()->getDirPath() . DIRECTORY_SEPARATOR . $this->getFileParams()->getLocalConfigFileName() . '.php';
     }
 
     /**
@@ -116,26 +116,6 @@ class Config extends ArrayConfig
     }
 
     /**
-     * Setter of $dirPath
-     *
-     * @param string $dirPath
-     */
-    private function setDirPath($dirPath)
-    {
-        $this->dirPath = (string)$dirPath;
-    }
-
-    /**
-     * Getter of $dirPath
-     *
-     * @return string
-     */
-    private function getDirPath()
-    {
-        return $this->dirPath;
-    }
-
-    /**
      * Setter of $env
      *
      * @param string $env
@@ -146,54 +126,13 @@ class Config extends ArrayConfig
     }
 
     /**
-     * Getter of $env
+     * Setter of $fileParams
      *
-     * @return string
+     * @param FileParams $fileParams
      */
-    private function getEnv()
+    private function setFileParams(FileParams $fileParams)
     {
-        return $this->env;
+        $this->fileParams = $fileParams;
     }
-
-    /**
-     * Setter of $mainConfigFileName
-     *
-     * @param string $mainConfigFileName
-     */
-    private function setMainConfigFileName($mainConfigFileName)
-    {
-        $this->mainConfigFileName = (string)$mainConfigFileName;
-    }
-
-    /**
-     * Getter of $mainConfigFileName
-     *
-     * @return string
-     */
-    private function getMainConfigFileName()
-    {
-        return $this->mainConfigFileName;
-    }
-
-    /**
-     * Getter of $localConfigFileName
-     *
-     * @return string
-     */
-    private function getLocalConfigFileName()
-    {
-        return $this->localConfigFileName;
-    }
-
-    /**
-     * Setter of $localConfigFileName
-     *
-     * @param string $localConfigFileName
-     */
-    private function setLocalConfigFileName($localConfigFileName)
-    {
-        $this->localConfigFileName = (string)$localConfigFileName;
-    }
-
 }
  

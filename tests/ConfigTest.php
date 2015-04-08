@@ -41,13 +41,13 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     public function testGetWithOtherDir()
     {
-        $config = new Config('', 'config2');
+        $config = new Config('', new FileParams('config2'));
         $this->assertSame('value1c', $config['key1']);
     }
 
     public function testGetWithOtherFileName()
     {
-        $config = new Config('', 'config3', 'foo');
+        $config = new Config('', new FileParams('config3', 'foo'));
         $this->assertSame('value1d', $config['key1']);
     }
 
@@ -67,7 +67,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertFalse(is_dir('foo'));
 
-        $config = new Config('', 'foo');
+        $config = new Config('', new FileParams('foo'));
         $this->assertFalse(isset($config['key1']));
     }
 
@@ -76,7 +76,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse(is_file('config3/main.php'));
         $this->assertFalse(is_file('config3/bar.php'));
 
-        $config = new Config('', 'config3', 'bar');
+        $config = new Config('', new FileParams('config3', 'bar'));
         $this->assertFalse(isset($config['key1']));
     }
 
