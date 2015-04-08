@@ -1,6 +1,9 @@
 <?php
 namespace Puppy\Config;
 
+use Puppy\Config\FileReader\ArrayFileReader;
+use Puppy\Config\FileReader\IFileReader;
+
 /**
  * Class Config
  * @package Puppy\Config
@@ -16,15 +19,21 @@ class Config extends ArrayConfig
      * @var FileParams
      */
     private $fileParams;
+    /**
+     * @var IFileReader
+     */
+    private $fileReader;
 
     /**
      * @param string $env
      * @param FileParams $fileParams
+     * @param IFileReader $fileReader
      */
-    public function __construct($env = '', FileParams $fileParams = null)
+    public function __construct($env = '', FileParams $fileParams = null, IFileReader $fileReader = null)
     {
         $this->setEnv($env);
         $this->setFileParams($fileParams ? : new FileParams());
+        $this->setFileReader($fileReader ? : new ArrayFileReader());
         parent::__construct($this->getData());
     }
 
@@ -49,11 +58,24 @@ class Config extends ArrayConfig
     }
 
     /**
+     * Getter of $fileReader
+     *
+     * @return IFileReader
+     */
+    public function getFileReader()
+    {
+        return $this->fileReader;
+    }
+
+    /**
      * @return string
      */
     public function getMainFilePath()
     {
-        return $this->getFileParams()->getDirPath() . DIRECTORY_SEPARATOR . $this->getFileParams()->getMainConfigFileName() . '.php';
+        return $this->getFileParams()->getDirPath()
+                . DIRECTORY_SEPARATOR
+                . $this->getFileParams()->getMainConfigFileName()
+                . $this->getFileReader()->getFileExtension();
     }
 
     /**
@@ -61,7 +83,10 @@ class Config extends ArrayConfig
      */
     public function getEnvFilePath()
     {
-        return $this->getFileParams()->getDirPath() . DIRECTORY_SEPARATOR . $this->getEnv() . '.php';
+        return $this->getFileParams()->getDirPath()
+                . DIRECTORY_SEPARATOR
+                . $this->getEnv()
+                . $this->getFileReader()->getFileExtension();
     }
 
     /**
@@ -69,7 +94,10 @@ class Config extends ArrayConfig
      */
     public function getLocalFilePath()
     {
-        return $this->getFileParams()->getDirPath() . DIRECTORY_SEPARATOR . $this->getFileParams()->getLocalConfigFileName() . '.php';
+        return $this->getFileParams()->getDirPath()
+                . DIRECTORY_SEPARATOR
+                . $this->getFileParams()->getLocalConfigFileName()
+                . $this->getFileReader()->getFileExtension();
     }
 
     /**
@@ -96,7 +124,7 @@ class Config extends ArrayConfig
         foreach ($filePaths as $filePath) {
             $filePath = $this->getRealPath($filePath);
             if ($filePath) {
-                $result = array_merge($result, require $filePath);
+                $result = array_merge($result, $this->getFileReader()->read($filePath));
             }
         }
         return $result;
@@ -133,6 +161,16 @@ class Config extends ArrayConfig
     private function setFileParams(FileParams $fileParams)
     {
         $this->fileParams = $fileParams;
+    }
+
+    /**
+     * Setter of $fileReader
+     *
+     * @param IFileReader $fileReader
+     */
+    private function setFileReader(IFileReader $fileReader)
+    {
+        $this->fileReader = $fileReader;
     }
 }
  
