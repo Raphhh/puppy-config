@@ -9,7 +9,7 @@
 [![Reference Status](https://www.versioneye.com/php/raphhh:puppy-config/reference_badge.svg?style=flat)](https://www.versioneye.com/php/raphhh:puppy-config/references)
 [![License](https://poser.pugx.org/raphhh/puppy-config/license.svg)](https://packagist.org/packages/raphhh/puppy-config)
 
-Puppy Config loads for you your config.
+Puppy Config is a config manager that loads your config from files according to your env.
 
 Config basic logic:
 
