@@ -15,7 +15,7 @@ class ArrayConfig extends \ArrayObject
     public function __construct($data)
     {
         if(!($data instanceof self)){
-            $data = $this->replace($data);
+            $data = $this->buildConfig($data);
         }
         parent::__construct($data);
     }
@@ -39,22 +39,16 @@ class ArrayConfig extends \ArrayObject
     public function offsetSet($key, $value)
     {
         parent::offsetSet($key, $value);
-        $this->exchangeArray($this->replace(parent::getArrayCopy()));
+        $this->exchangeArray($this->buildConfig(parent::getArrayCopy()));
     }
 
     /**
      * @param array|\ArrayObject $data
      * @return array
      */
-    private function replace($data)
+    private function buildConfig($data)
     {
-        $replacement = $this->formatKeys($data);
-        foreach ($data as $key => $var) {
-            if (is_string($var)) {
-                $data[$key] = strtr($var, $replacement);
-            }
-        }
-        return $data;
+        return $this->replace($data, $this->formatKeys($data));
     }
 
     /**
@@ -70,6 +64,23 @@ class ArrayConfig extends \ArrayObject
             }
         }
         return $result;
+    }
+
+    /**
+     * @param $data
+     * @param array $replacements
+     * @return mixed
+     */
+    private function replace($data, array $replacements)
+    {
+        foreach ($data as $key => $var) {
+            if (is_string($var)) {
+                $data[$key] = strtr($var, $replacements);
+            }elseif(is_array($var)){
+                $data[$key] = $this->replace($var, $replacements);
+            }
+        }
+        return $data;
     }
 }
  

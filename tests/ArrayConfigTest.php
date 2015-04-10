@@ -33,6 +33,17 @@ class ArrayConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('abc', $newConfig['key2']);
     }
 
+
+    public function testConstructWithReplacementInArray()
+    {
+        $config = new ArrayConfig([
+            'key1' => 'abc',
+        ]);
+
+        $config['key2'] = ['%key1%'];
+        $this->assertSame('abc', $config['key2'][0]);
+    }
+
     public function testOffsetSetWithArrayConfig()
     {
         $config = new ArrayConfig([
