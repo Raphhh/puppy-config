@@ -101,8 +101,8 @@ $globalConfig['b.b'] = 'b.b';
 With the global scope config you can access to all the values.
 
 ```php
-$restrictedConfig['a.a']; //'a.a'
-$restrictedConfig['b.a']; //'b.a'
+$globalConfig['a.a']; //'a.a'
+$globalConfig['b.a']; //'b.a'
 ```
 
 Now, restrict the config to the namespace 'a':
