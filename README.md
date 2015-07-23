@@ -13,10 +13,10 @@ Puppy Config is a config manager that loads your config from files according to 
 
 Config basic logic:
 
-- env config management
+- env config management (dev, test, prod, ...)
+- multi file formats support (php, ini, json, yaml)
 - dynamic config values
 - visibility restriction
-- file formats interface
 
 ## Installation
 
@@ -132,6 +132,28 @@ $restrictedConfig['a'] = 'new value';
 $globalConfig['a.a']; //'new value'
 ```
 
+## Files format
+
+By default, Config load 'php' files. This kind of file must return a PHP array.
+
+```php
+// /config/global.php
+return [
+    'key' => 'value',
+];
+```
+
+But you can specify or add specific file formats.
+
+```php
+new Config('', null, new YmlFileReader()); //will load config/global.yml
+```
+
+Available formats:
+ - php (default)
+ - ini
+ - json
+ - yaml
 
 ## Multi environment
 
@@ -183,18 +205,3 @@ The config will load also a local config, if the file config/local.php exists.
 This config will override the global and the env configs. Be careful: this file must be NOT versioned. 
 
 So, it is an individual config, where your can put temporary or specific config. Your can also put config you do not want to version, like the passwords.
-
-
-### Files format
-
-By default, Config load php files. But you can specify or add specific file formats.
-
-```php
-new Config('', null, new YmlFileReader()); //will load global.yml
-```
-
-Available formats:
- - php (default)
- - ini
- - json
- - yaml
